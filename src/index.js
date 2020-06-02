@@ -24,7 +24,26 @@ function FastImageBase({
     forwardedRef,
     ...props
 }) {
-    if (fallback || Platform.OS === 'web') {
+    if (Platform.OS === 'web') {        
+        return (
+            <View ref={forwardedRef}>
+                <Image
+                    {...props}
+                    tintColor={tintColor}
+                    style={style}
+                    source={source}
+                    onLoadStart={onLoadStart}
+                    onProgress={onProgress}
+                    onLoad={onLoad}
+                    onError={onError}
+                    onLoadEnd={onLoadEnd}
+                />
+                {children}
+            </View>
+        )        
+    }
+
+    if (fallback) {
         return (
             <View style={[styles.imageContainer, style]} ref={forwardedRef}>
                 <Image
